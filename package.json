@@ -1,0 +1,22 @@
+{
+  "name": "cc-edge-macos-power-thermal-io",
+  "version": "0.1.0",
+  "minLogStreamVersion": "4.16.0",
+  "author": "jpe-cribl",
+  "description": "Cribl Edge pack for macOS powermetrics sampling, wired memory against the GPU wired ceiling, and thermal pressure levels.",
+  "displayName": "macOS Power, Wired Memory and Thermal for Edge",
+  "tags": {
+    "streamtags": [
+      "macos",
+      "power",
+      "thermal",
+      "perf",
+      "monitoring"
+    ],
+    "dataType": [
+      "metrics",
+      "logs"
+    ]
+  },
+  "exports": []
+}

@@ -1,0 +1,37 @@
+id: default
+groups: {}
+comments: []
+routes:
+  - id: macos-powermetrics
+    name: macOS powermetrics (exec source)
+    final: true
+    disabled: false
+    pipeline: macos_powermetrics
+    description: "macOS powermetrics sample from the exec source"
+    enableOutputExpression: false
+    targetContext: group
+    filter: "__inputId=='exec:in_macos_powermetrics'"
+    clones: []
+    output: __group
+  - id: macos-wired-memory
+    name: macOS wired memory (exec source)
+    final: true
+    disabled: false
+    pipeline: macos_wired_memory
+    description: "macOS wired memory against the GPU wired ceiling, from the exec source"
+    enableOutputExpression: false
+    targetContext: group
+    filter: "__inputId=='exec:in_macos_wired_memory'"
+    clones: []
+    output: __group
+  - id: macos-thermal
+    name: macOS thermal pressure (exec source)
+    final: true
+    disabled: false
+    pipeline: macos_thermal
+    description: "macOS thermal pressure levels (pmset -g therm) from the exec source"
+    enableOutputExpression: false
+    targetContext: group
+    filter: "__inputId=='exec:in_macos_thermal'"
+    clones: []
+    output: __group

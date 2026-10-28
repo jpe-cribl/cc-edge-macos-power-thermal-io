@@ -1,0 +1,17 @@
+output: default
+streamtags: []
+groups: {}
+asyncFuncTimeout: 1000
+description: >-
+  Sets index and sourcetype on a macOS thermal pressure sample (pmset -g therm)
+  from the exec source. Event telemetry, so the index is os.
+functions:
+  - id: eval
+    filter: "true"
+    disabled: false
+    conf:
+      add:
+        - name: index
+          value: "'os'"
+        - name: sourcetype
+          value: "'macos:system:thermal'"

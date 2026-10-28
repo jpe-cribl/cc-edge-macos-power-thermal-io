@@ -1,0 +1,1 @@
+powermetrics --samplers tasks,battery,cpu_power,gpu_power,ane_power,thermal -f plist -n 1 -i 5000 | /usr/bin/plutil -replace timestamp -string "" -o - - | /usr/bin/plutil -convert json -o - -
