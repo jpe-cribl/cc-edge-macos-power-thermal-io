@@ -1,0 +1,6 @@
+[
+  {
+    "index": "os",
+    "sourcetype": "macos:system:thermal"
+  }
+]
