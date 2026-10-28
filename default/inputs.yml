@@ -1,0 +1,3 @@
+# This pack ships no sources. Exec sources in the Edge deployment connect to
+# the pipelines in default/pipelines/ by pipeline id.
+inputs: {}

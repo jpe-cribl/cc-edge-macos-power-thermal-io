@@ -1,0 +1,3 @@
+# Cribl pack manifest. Optional: a small base64-encoded PNG as `logo:` shows
+# in the Cribl UI.
+logo: ''
