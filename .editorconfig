@@ -10,3 +10,7 @@ trim_trailing_whitespace = true
 
 [*.md]
 trim_trailing_whitespace = false
+
+# Exec command text is compared byte-for-byte with the Nix source string.
+[*.cmd]
+insert_final_newline = false
