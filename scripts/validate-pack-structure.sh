@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Structural validation for a dryvist Cribl pack repo. Combines the checks
+# Structural validation for a Cribl pack repo. Combines the checks
 # that previously lived inline in the cribl-pack-test.yml validate job.
 #
 # Inputs (env var):
