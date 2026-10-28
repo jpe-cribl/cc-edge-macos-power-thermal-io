@@ -1,0 +1,17 @@
+output: default
+streamtags: []
+groups: {}
+asyncFuncTimeout: 1000
+description: >-
+  Sets index and sourcetype on a macOS wired-memory sample from the exec source.
+  Performance sampling, so the index is mac_perf.
+functions:
+  - id: eval
+    filter: "true"
+    disabled: false
+    conf:
+      add:
+        - name: index
+          value: "'mac_perf'"
+        - name: sourcetype
+          value: "'macos:perf:wired_memory'"
