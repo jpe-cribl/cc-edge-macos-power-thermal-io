@@ -20,11 +20,14 @@ archive to Cribl Edge as a pack, from the Cribl UI or the packs API.
 Each exec source in the Edge deployment connects to one pipeline by pipeline
 id. The pack's routes match a source by `__inputId`, using the input ids below.
 
-| Pipeline | Exec input id | `index` | `sourcetype` | Event content |
-| --- | --- | --- | --- | --- |
-| `macos_powermetrics` | `exec:in_macos_powermetrics` | `mac_perf` | `macos:perf:powermetrics` | One powermetrics sample as JSON |
-| `macos_wired_memory` | `exec:in_macos_wired_memory` | `mac_perf` | `macos:perf:wired_memory` | Wired bytes, GPU wired ceiling, wired ratio |
-| `macos_thermal` | `exec:in_macos_thermal` | `os` | `macos:system:thermal` | Output of `pmset -g therm` |
+- `macos_powermetrics`: exec input `exec:in_macos_powermetrics`, index
+  `mac_perf`, sourcetype `macos:perf:powermetrics`. One powermetrics sample as
+  JSON.
+- `macos_wired_memory`: exec input `exec:in_macos_wired_memory`, index
+  `mac_perf`, sourcetype `macos:perf:wired_memory`. Wired bytes, the GPU wired
+  ceiling, and the wired ratio.
+- `macos_thermal`: exec input `exec:in_macos_thermal`, index `os`, sourcetype
+  `macos:system:thermal`. The output of `pmset -g therm`.
 
 Each pipeline sets its own constant `index` and `sourcetype` and adds no other
 fields.
