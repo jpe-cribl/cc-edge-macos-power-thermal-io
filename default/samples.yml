@@ -1,0 +1,20 @@
+# Catalog of sample events for the Cribl UI sample-data preview.
+# One entry per data/samples/<id>.json file.
+macos_powermetrics:
+  sampleName: macos_powermetrics.json
+  description: One powermetrics sample from the exec source.
+  created: 1793188800000
+  size: 143
+  numEvents: 1
+macos_wired_memory:
+  sampleName: macos_wired_memory.json
+  description: One wired-memory sample from the exec source.
+  created: 1793188800000
+  size: 204
+  numEvents: 1
+macos_thermal:
+  sampleName: macos_thermal.json
+  description: One pmset thermal output sample from the exec source.
+  created: 1793188800000
+  size: 171
+  numEvents: 1
