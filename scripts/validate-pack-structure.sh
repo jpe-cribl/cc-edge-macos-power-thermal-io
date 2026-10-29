@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Structural validation for a dryvist Cribl pack repo. Combines the checks
+# Structural validation for a Cribl pack repo. Combines the checks
 # that previously lived inline in the cribl-pack-test.yml validate job.
 #
 # Inputs (env var):
@@ -63,10 +63,10 @@ for pipeline in "${pipelines_in_routes[@]}"; do
   fi
 done
 
-# 4) Routes use 'output: __group' (validator rule, warning only).
+# 4) Routes use 'output: __group' (pack convention, warning only).
 bad_outputs=$(yq -r '.routes[] | select(.output != "__group") | .id' default/pipelines/route.yml)
 if [[ -n "${bad_outputs}" ]]; then
-  echo "::warning::These routes do not use 'output: __group' (validator rule): ${bad_outputs}"
+  echo "::warning::These routes do not use 'output: __group' (pack convention): ${bad_outputs}"
 fi
 
 # 5) Sample events exist (warning only — packs may legitimately ship without samples).
