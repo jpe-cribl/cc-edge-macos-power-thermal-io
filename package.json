@@ -1,6 +1,6 @@
 {
   "name": "cc-edge-macos-power-thermal-io",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "minLogStreamVersion": "4.16.0",
   "author": "jpe-cribl",
   "description": "Cribl Edge pack for macOS powermetrics sampling, wired memory against the GPU wired ceiling, and thermal pressure levels.",
