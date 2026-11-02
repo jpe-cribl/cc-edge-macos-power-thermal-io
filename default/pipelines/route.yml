@@ -35,3 +35,25 @@ routes:
     filter: "__inputId=='exec:in_macos_thermal'"
     clones: []
     output: __group
+  - id: macos-battery
+    name: macOS battery (exec source)
+    final: true
+    disabled: false
+    pipeline: macos_battery
+    description: "macOS battery state, charge, cycle count, and capacity (pmset and ioreg) from the exec source"
+    enableOutputExpression: false
+    targetContext: group
+    filter: "__inputId=='exec:in_macos_battery'"
+    clones: []
+    output: __group
+  - id: macos-macmon
+    name: macOS macmon (exec source)
+    final: true
+    disabled: false
+    pipeline: macos_macmon
+    description: "macmon GPU frequency and utilization, per-rail power, temperatures, and RAM from the exec source"
+    enableOutputExpression: false
+    targetContext: group
+    filter: "__inputId=='exec:in_macos_macmon'"
+    clones: []
+    output: __group

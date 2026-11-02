@@ -1,0 +1,12 @@
+[
+  {
+    "index": "mac_perf",
+    "sourcetype": "macos:perf:macmon",
+    "cpu_temp_celsius": 42.1,
+    "gpu_temp_celsius": 38.4,
+    "ram_used_bytes": 51539607552,
+    "ram_total_bytes": 137438953472,
+    "gpu_freq_mhz": 900,
+    "gpu_scaled_ratio": 0.12
+  }
+]
