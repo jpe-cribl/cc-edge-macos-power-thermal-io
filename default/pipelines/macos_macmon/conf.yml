@@ -27,17 +27,17 @@ functions:
         # plain names rather than relying on dotted-path/index support in
         # eventFieldName.
         - name: cpu_temp_celsius
-          value: "temp?.cpu_temp_avg"
+          value: "temp && temp.cpu_temp_avg"
         - name: gpu_temp_celsius
-          value: "temp?.gpu_temp_avg"
+          value: "temp && temp.gpu_temp_avg"
         - name: ram_used_bytes
-          value: "memory?.ram_usage"
+          value: "memory && memory.ram_usage"
         - name: ram_total_bytes
-          value: "memory?.ram_total"
+          value: "memory && memory.ram_total"
         - name: gpu_freq_mhz
-          value: "gpu_usage?.[0]"
+          value: "gpu_usage && gpu_usage[0]"
         - name: gpu_scaled_ratio
-          value: "gpu_usage?.[1]"
+          value: "gpu_usage && gpu_usage[1]"
   - id: publish_metrics
     filter: "true"
     disabled: false
@@ -45,46 +45,47 @@ functions:
       # One Gauge per macmon field: GPU utilization and frequency, per-rail
       # power (CPU, GPU, RAM, combined, and system), temperatures, and RAM. All
       # already top-level in macmon's JSON except the six flattened above.
-      metrics:
-        - eventFieldName: gpu_scaled_ratio
-          metricNameExpression: "'macos.macmon.gpu.utilization_ratio'"
-          metricType: Gauge
-        - eventFieldName: gpu_freq_mhz
-          metricNameExpression: "'macos.macmon.gpu.freq_mhz'"
-          metricType: Gauge
-        - eventFieldName: cpu_power
-          metricNameExpression: "'macos.macmon.power.cpu_watts'"
-          metricType: Gauge
-        - eventFieldName: gpu_power
-          metricNameExpression: "'macos.macmon.power.gpu_watts'"
-          metricType: Gauge
-        - eventFieldName: ane_power
-          metricNameExpression: "'macos.macmon.power.ane_watts'"
-          metricType: Gauge
-        - eventFieldName: ram_power
-          metricNameExpression: "'macos.macmon.power.ram_watts'"
-          metricType: Gauge
-        - eventFieldName: gpu_ram_power
-          metricNameExpression: "'macos.macmon.power.gpu_ram_watts'"
-          metricType: Gauge
-        - eventFieldName: all_power
-          metricNameExpression: "'macos.macmon.power.all_watts'"
-          metricType: Gauge
-        - eventFieldName: sys_power
-          metricNameExpression: "'macos.macmon.power.sys_watts'"
-          metricType: Gauge
-        - eventFieldName: cpu_temp_celsius
-          metricNameExpression: "'macos.macmon.temp.cpu_celsius'"
-          metricType: Gauge
-        - eventFieldName: gpu_temp_celsius
-          metricNameExpression: "'macos.macmon.temp.gpu_celsius'"
-          metricType: Gauge
-        - eventFieldName: ram_used_bytes
-          metricNameExpression: "'macos.macmon.memory.ram_used_bytes'"
-          metricType: Gauge
-        - eventFieldName: ram_total_bytes
-          metricNameExpression: "'macos.macmon.memory.ram_total_bytes'"
-          metricType: Gauge
-      addDimensions:
+      fields:
+        - inFieldName: gpu_scaled_ratio
+          outFieldExpr: "'macos.macmon.gpu.utilization_ratio'"
+          metricType: gauge
+        - inFieldName: gpu_freq_mhz
+          outFieldExpr: "'macos.macmon.gpu.freq_mhz'"
+          metricType: gauge
+        - inFieldName: cpu_power
+          outFieldExpr: "'macos.macmon.power.cpu_watts'"
+          metricType: gauge
+        - inFieldName: gpu_power
+          outFieldExpr: "'macos.macmon.power.gpu_watts'"
+          metricType: gauge
+        - inFieldName: ane_power
+          outFieldExpr: "'macos.macmon.power.ane_watts'"
+          metricType: gauge
+        - inFieldName: ram_power
+          outFieldExpr: "'macos.macmon.power.ram_watts'"
+          metricType: gauge
+        - inFieldName: gpu_ram_power
+          outFieldExpr: "'macos.macmon.power.gpu_ram_watts'"
+          metricType: gauge
+        - inFieldName: all_power
+          outFieldExpr: "'macos.macmon.power.all_watts'"
+          metricType: gauge
+        - inFieldName: sys_power
+          outFieldExpr: "'macos.macmon.power.sys_watts'"
+          metricType: gauge
+        - inFieldName: cpu_temp_celsius
+          outFieldExpr: "'macos.macmon.temp.cpu_celsius'"
+          metricType: gauge
+        - inFieldName: gpu_temp_celsius
+          outFieldExpr: "'macos.macmon.temp.gpu_celsius'"
+          metricType: gauge
+        - inFieldName: ram_used_bytes
+          outFieldExpr: "'macos.macmon.memory.ram_used_bytes'"
+          metricType: gauge
+        - inFieldName: ram_total_bytes
+          outFieldExpr: "'macos.macmon.memory.ram_total_bytes'"
+          metricType: gauge
+      dimensions:
         - host
+      removeMetrics: []
       removeDimensions: []
