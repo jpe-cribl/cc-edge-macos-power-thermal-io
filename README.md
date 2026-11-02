@@ -1,8 +1,8 @@
 # cc-edge-macos-power-thermal-io
 
-Cribl Edge pack for macOS power, wired memory, and thermal telemetry. It holds
-three pipelines and the exec command text for the two sources that need a
-multi-part command.
+Cribl Edge pack for macOS power, battery, macmon, wired memory, and thermal
+telemetry. It holds five pipelines and the exec command text for their five
+exec sources.
 
 ## Installation
 
@@ -28,18 +28,27 @@ id. The pack's routes match a source by `__inputId`, using the input ids below.
   ceiling, and the wired ratio.
 - `macos_thermal`: exec input `exec:in_macos_thermal`, index `os`, sourcetype
   `macos:system:thermal`. The output of `pmset -g therm`.
+- `macos_battery`: exec input `exec:in_macos_battery`, index `os`, sourcetype
+  `macos:power:battery`. Battery state, charge, cycle count, capacity, and
+  temperature from pmset and ioreg, plus the derived battery health percent.
+- `macos_macmon`: exec input `exec:in_macos_macmon`, index `mac_perf`,
+  sourcetype `macos:perf:macmon`. GPU frequency and utilization, per-rail
+  power, temperatures, and RAM, published as metrics.
 
-Each pipeline sets its own constant `index` and `sourcetype` and adds no other
-fields.
+Each pipeline sets its own constant `index` and `sourcetype`. The battery
+pipeline also adds `battery_health_percent`, and below 80 percent it adds
+`anomaly` and `anomaly_reason`. The macmon pipeline flattens its nested
+temperature, memory, and GPU fields, and publishes them as metrics.
 
-The exec command text for the two multi-part sources lives in
-`default/exec/`:
+The exec command text for every exec source lives in `default/exec/`:
 
 - `default/exec/macos-powermetrics.cmd`
 - `default/exec/macos-wired-memory.cmd`
+- `default/exec/macos-thermal.cmd`
+- `default/exec/macos-battery.cmd`
+- `default/exec/macos-macmon.cmd`
 
-Each file holds the exact command string with no trailing newline. The
-`pmset -g therm` command is a single command and has no file.
+Each file holds the exact command string with no trailing newline.
 
 powermetrics requires root.
 
@@ -76,5 +85,6 @@ No license file has been added to this repository yet.
 
 ### v0.1.0 (unreleased)
 
-- Initial pack: `macos_powermetrics`, `macos_wired_memory`, and `macos_thermal`
-  pipelines, with the exec command text for powermetrics and wired memory.
+- Initial pack: `macos_powermetrics`, `macos_wired_memory`, `macos_thermal`,
+  `macos_battery`, and `macos_macmon` pipelines, with the exec command text for
+  each exec source.

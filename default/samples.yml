@@ -18,3 +18,15 @@ macos_thermal:
   created: 1793188800000
   size: 171
   numEvents: 1
+macos_battery:
+  sampleName: macos_battery.json
+  description: One battery sample from the exec source.
+  created: 1793188800000
+  size: 484
+  numEvents: 1
+macos_macmon:
+  sampleName: macos_macmon.json
+  description: One macmon sample from the exec source.
+  created: 1793188800000
+  size: 857
+  numEvents: 1

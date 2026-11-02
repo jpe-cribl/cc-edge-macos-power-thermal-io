@@ -1,0 +1,91 @@
+output: default
+streamtags: []
+groups: {}
+asyncFuncTimeout: 1000
+description: >-
+  Sets index and sourcetype on a macmon sample from the exec source, flattens
+  its temperature, memory, and GPU fields, and publishes them as metrics.
+  Performance sampling, so the index is mac_perf.
+functions:
+  - id: eval
+    filter: "true"
+    disabled: false
+    conf:
+      add:
+        - name: index
+          value: "'mac_perf'"
+        - name: sourcetype
+          value: "'macos:perf:macmon'"
+  - id: eval
+    filter: "true"
+    disabled: false
+    conf:
+      add:
+        # macmon nests temperature/memory under temp{}/memory{}, and reports
+        # GPU frequency/utilization as a [freq_mhz, ratio] tuple rather than
+        # flat fields; flatten all of it so Publish Metrics below references
+        # plain names rather than relying on dotted-path/index support in
+        # eventFieldName.
+        - name: cpu_temp_celsius
+          value: "temp && temp.cpu_temp_avg"
+        - name: gpu_temp_celsius
+          value: "temp && temp.gpu_temp_avg"
+        - name: ram_used_bytes
+          value: "memory && memory.ram_usage"
+        - name: ram_total_bytes
+          value: "memory && memory.ram_total"
+        - name: gpu_freq_mhz
+          value: "gpu_usage && gpu_usage[0]"
+        - name: gpu_scaled_ratio
+          value: "gpu_usage && gpu_usage[1]"
+  - id: publish_metrics
+    filter: "true"
+    disabled: false
+    conf:
+      # One Gauge per macmon field: GPU utilization and frequency, per-rail
+      # power (CPU, GPU, RAM, combined, and system), temperatures, and RAM. All
+      # already top-level in macmon's JSON except the six flattened above.
+      fields:
+        - inFieldName: gpu_scaled_ratio
+          outFieldExpr: "'macos.macmon.gpu.utilization_ratio'"
+          metricType: gauge
+        - inFieldName: gpu_freq_mhz
+          outFieldExpr: "'macos.macmon.gpu.freq_mhz'"
+          metricType: gauge
+        - inFieldName: cpu_power
+          outFieldExpr: "'macos.macmon.power.cpu_watts'"
+          metricType: gauge
+        - inFieldName: gpu_power
+          outFieldExpr: "'macos.macmon.power.gpu_watts'"
+          metricType: gauge
+        - inFieldName: ane_power
+          outFieldExpr: "'macos.macmon.power.ane_watts'"
+          metricType: gauge
+        - inFieldName: ram_power
+          outFieldExpr: "'macos.macmon.power.ram_watts'"
+          metricType: gauge
+        - inFieldName: gpu_ram_power
+          outFieldExpr: "'macos.macmon.power.gpu_ram_watts'"
+          metricType: gauge
+        - inFieldName: all_power
+          outFieldExpr: "'macos.macmon.power.all_watts'"
+          metricType: gauge
+        - inFieldName: sys_power
+          outFieldExpr: "'macos.macmon.power.sys_watts'"
+          metricType: gauge
+        - inFieldName: cpu_temp_celsius
+          outFieldExpr: "'macos.macmon.temp.cpu_celsius'"
+          metricType: gauge
+        - inFieldName: gpu_temp_celsius
+          outFieldExpr: "'macos.macmon.temp.gpu_celsius'"
+          metricType: gauge
+        - inFieldName: ram_used_bytes
+          outFieldExpr: "'macos.macmon.memory.ram_used_bytes'"
+          metricType: gauge
+        - inFieldName: ram_total_bytes
+          outFieldExpr: "'macos.macmon.memory.ram_total_bytes'"
+          metricType: gauge
+      dimensions:
+        - host
+      removeMetrics: []
+      removeDimensions: []

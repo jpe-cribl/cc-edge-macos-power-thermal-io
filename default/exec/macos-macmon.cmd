@@ -1,0 +1,1 @@
+/run/current-system/sw/bin/macmon pipe -s 1

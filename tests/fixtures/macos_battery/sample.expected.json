@@ -1,0 +1,7 @@
+[
+  {
+    "index": "os",
+    "sourcetype": "macos:power:battery",
+    "battery_health_percent": 86.6
+  }
+]
